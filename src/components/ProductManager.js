@@ -7,23 +7,37 @@ class ProductManager {
 
   //leer productos
   readProducts = async () => {
-    const productAdded = await fs.promises.readFile(this.path, 'utf-8')
-    return JSON.parse(productAdded)
+    try {
+      const response = await fs.promises.readFile(this.path, { encoding: 'utf-8' })
+      return JSON.parse(response)  
+    } catch (err) {
+      return console.error(err)
+    }
   }
 
   //Objetener productos
   getProducts = async () => {
-    return await this.readProducts()
+    try {
+      const productList = await this.readProducts()
+      return productList
+    } catch (err) {
+      return console.error(err)
+    }
   }
 
   //Obtener productos por id
   getProductbyId = async (id) => {
-    const productById = await this.exist(id)
-        if(!productById) {
-            return "Ese producto no existe"
-        } else {
-            return productById
-        }
+    try {
+      const productById = await this.exist(id)
+      //con éste método asignado puedo reemplazar y simplificar todos los métodos find
+      if(!productById) {
+          return "Ese producto no existe"
+      } else {
+          return productById
+      }
+    } catch (err) {
+      return console.error(err)
+    }
   }
   
   //Generar id autoincrementable
@@ -45,16 +59,17 @@ class ProductManager {
 
   //Creación de producto
   addProduct = async (obj) => {
-    const {title, description, price, thumbnail, category, status=true, code, stock} = obj
+    try {
+      const {title, description, price, thumbnail, category, status=true, code, stock} = obj
 
-    if (!title || !description || !price || !category || !code ||!status || !stock || !thumbnail) {
-      return ("Debes proporcionar todos los campos completos. Todos los valores son obligatorios.")
-    } else {
-      const productArray = await this.getProducts({})
-      const existCodeInProducts = productArray.some((elemento) => elemento.code === code)
-      if (existCodeInProducts) {
-        return(`El código ${code} no puede repetirse`)
+      if (!title || !description || !price || !category || !code ||!status || !stock || !thumbnail) {
+        return ("Debes proporcionar todos los campos completos. Todos los valores son obligatorios.")
       } else {
+        const productArray = await this.getProducts({})
+        const existCodeInProducts = productArray.some((elemento) => elemento.code === code)
+          if (existCodeInProducts) {
+          return(`El código ${code} no puede repetirse`)
+          } else {
 
         const id = await this.generateId();
         const newProduct = {
@@ -67,11 +82,14 @@ class ProductManager {
           thumbnail,
           code,
           stock,
-        }
+      }
         productArray.push(newProduct)
         await fs.promises.writeFile(this.path, JSON.stringify(productArray, null, '\t'))
         return "Producto agregado"
+        }
       }
+    } catch (err) {
+      return console.error(err)
     }
   }
 
