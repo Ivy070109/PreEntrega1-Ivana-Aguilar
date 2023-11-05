@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar productos</title>
+</head>
+<body>
+    <h1>Aquí podemos cargar los productos</h1>
+    <form action="http://localhost:8080/api/products" method="post" enctype="multipart/form-data"> 
+        <input type="text" name="product" placeholder="Nombre">
+        <br />
+        <input type="text" name="petBrand" placeholder="Raza">
+        <br />
+        <input type="file" name="avatar">
+        <br /><br /> 
+        <button type="submit">Cargar</button>
+    </form>
+</body>
+</html>

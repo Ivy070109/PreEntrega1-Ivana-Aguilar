@@ -1,0 +1,28 @@
+[
+	{
+		"id": "kO2",
+		"products": []
+	},
+	{
+		"id": "TUR",
+		"products": [
+			{
+				"productId": "1",
+				"quantity": 1
+			}
+		]
+	},
+	{
+		"id": "lqg",
+		"products": [
+			{
+				"productId": "8",
+				"quantity": 1
+			},
+			{
+				"productId": "2",
+				"quantity": 1
+			}
+		]
+	}
+]
