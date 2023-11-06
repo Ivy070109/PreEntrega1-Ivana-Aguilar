@@ -119,5 +119,16 @@
     "status": true,
     "code": "abd132",
     "stock": 71
+  },
+  {
+    "id": 11,
+    "title": "producto plateado de prueba",
+    "description": "noveno producto de prueba elegante para modificaciones",
+    "price": 87400,
+    "category": "lindo",
+    "status": true,
+    "thumbnail": "sin imagen",
+    "code": "abd13ss2",
+    "stock": 87
   }
 ]

@@ -1,12 +1,12 @@
 import { Router } from "express"
 import CartManager from "../components/CartManager.js"
 
-const carts = new CartManager()
-const cartsRouter = Router()
+const cartsManager = new CartManager()
+const router = Router()
 
-cartsRouter.post('/', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        const newCart = await carts.addCarts()
+        const newCart = await cartsManager.addCarts()
 
         return res.status(200).json(newCart)
     } catch (err) {
@@ -14,24 +14,36 @@ cartsRouter.post('/', async (req, res) => {
     }
 })
 
-cartsRouter.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const cartsArray = await carts.readCarts()
-
+        const cartsArray = await cartsManager.readCarts()
         return res.status(200).json(cartsArray)
     } catch (err) {
         return console.error(err)
     }
 })
 
-cartsRouter.get('/:id', async (req, res) => {
-    return res.status(200).send(await carts.getCartById(req.params.id))
+router.get('/:cid', async (req, res) => {
+    try {
+        const cid = req.params.cid
+        const cartId = await cartsManager.getCartById(cid)
+
+        return res.status(200).json(cartId)
+    } catch (err) {
+        return console.error(err)
+    }
 })
 
-cartsRouter.post('/:cid/products/:pid', async (req, res) => {
-    const cartId = req.params.cid
-    const productId = req.params.pid
-    res.status(200).send(await carts.addProductInCart(cartId, productId))
+router.post('/:cid/products/:pid', async (req, res) => {
+    try {
+        const cartId = req.params.cid
+        const productId = req.params.pid
+        const productInCart = await cartsManager.addProductInCart(cartId, productId)
+        
+        return res.status(200).json(productInCart)
+    } catch (err) {
+        return console.error(err)
+    }
 })
 
-export default cartsRouter
+export default router
