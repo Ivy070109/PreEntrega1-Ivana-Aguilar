@@ -2,6 +2,7 @@ import fs from "fs"
 class ProductManager {
   constructor() {
     this.path = './files/products.json'
+    //importo el json a una carpeta aparte, ya que presentaba errores cuando la mantenia en la misma carpeta y de paso es más limpia la organización
     this.products = []
   }
 
@@ -15,7 +16,7 @@ class ProductManager {
     }
   }
 
-  //Objetener productos
+  //Objetener todos los productos
   getProducts = async () => {
     try {
       const productList = await this.readProducts()
@@ -25,11 +26,11 @@ class ProductManager {
     }
   }
 
-  //Obtener productos por id
+  //Obtener productos según su id
   getProductbyId = async (id) => {
     try {
       const productById = await this.exist(id)
-      //con éste método asignado puedo reemplazar y simplificar todos los métodos find
+      //con éste método asignado de node puedo reemplazar y simplificar todos los métodos find
       if(!productById) {
           return "Ese producto no existe"
       } else {
@@ -44,7 +45,7 @@ class ProductManager {
   generateId = async () => {
     try {
       if (fs.existsSync(this.path)) {
-        //busco la existencia de ésta ruta con éste método predeterminado
+        //busco la existencia de ésta ruta con éste método predeterminado de node
         const productList = await this.readProducts()
         const counter = productList.length
         if (counter == 0) {
@@ -93,7 +94,7 @@ class ProductManager {
     }
   }
 
-  //Borrar producto
+  //Borrar producto según su id
   deleteProductById = async (id) => {
     try {
       const productDetected = await this.readProducts()
@@ -106,7 +107,7 @@ class ProductManager {
     }
   }
 
-  //Actualizar productos
+  //Actualizar productos según su id
   updateProduct = async (id, product) => {
     try {
       const productDetected = await this.readProducts()
@@ -118,7 +119,7 @@ class ProductManager {
       ]
       await fs.promises.writeFile(this.path, JSON.stringify(modifiedProduct, null, 2))
 
-      return `El producto ha sido actualizado.`     
+      return `El producto con el ID ${id} ha sido actualizado`     
     } catch (error) {
       return console.error(error)
     }

@@ -4,6 +4,7 @@ import ProductManager from '../components/ProductManager.js'
 const managerProduct = new ProductManager()
 const router = Router()
 
+//parseo a número porque de otra manera es captado como un string
 router.get("/", async (req, res) => {
   try {
     const products = parseInt(req.query.limit)
@@ -59,7 +60,7 @@ router.put("/:pid", async (req, res) => {
 
 router.delete("/:pid", async (req, res) => {
   try {
-    const pid = req.params.pid
+    const pid = parseInt(req.params.pid)
     const productDeleted = await managerProduct.deleteProductById(pid)
 
     return res.status(200).json(productDeleted)

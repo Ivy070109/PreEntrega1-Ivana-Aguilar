@@ -6,6 +6,7 @@ import { __dirname } from "./utils.js"
 const app = express()
 const PORT = 8080
 
+//middleware de app
 app.use((err, req, res, next) => {
     console.log(err.stack)
     res.status(500).send('Algo falló')
@@ -19,6 +20,6 @@ app.use('/static', express.static(`${__dirname}/public`))
 app.use("/api/products", productRouter)
 app.use("/api/carts", cartsRouter)
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log(`Servidor Express ejecutándose en puerto ${PORT}`)
 })

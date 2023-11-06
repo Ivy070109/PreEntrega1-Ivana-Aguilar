@@ -4,6 +4,7 @@ import CartManager from "../components/CartManager.js"
 const cartsManager = new CartManager()
 const router = Router()
 
+//parseo a número porque de otra manera es captado como un string
 router.post('/', async (req, res) => {
     try {
         const newCart = await cartsManager.addCarts()
@@ -17,6 +18,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const cartsArray = await cartsManager.readCarts()
+
         return res.status(200).json(cartsArray)
     } catch (err) {
         return console.error(err)
@@ -25,7 +27,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:cid', async (req, res) => {
     try {
-        const cid = req.params.cid
+        const cid = parseInt(req.params.cid)
         const cartId = await cartsManager.getCartById(cid)
 
         return res.status(200).json(cartId)

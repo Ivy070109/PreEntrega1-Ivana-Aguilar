@@ -1,5 +1,4 @@
 import fs from 'fs'
-//import { nanoid } from 'nanoid'
 import ProductManager from '../components/ProductManager.js'
 //lo importo para poder ver lo que los carritos incluyan
 
@@ -7,6 +6,7 @@ const products = new ProductManager()
 class CartManager{
     constructor() {
         this.path = './files/carts.json'
+        //importo el json a una carpeta aparte, ya que presentaba errores cuando la mantenia en la misma carpeta y de paso es más limpia la organización
         this.cart = []
     }
 
@@ -22,6 +22,7 @@ class CartManager{
         }
     }
 
+    //buscar existencia según su id
     exist = async (cid) => {
         try {
             const carts = await this.readCarts()
@@ -33,6 +34,7 @@ class CartManager{
         }
     }
 
+    //escribir en el carrito
     writeCarts = async (carts) => {
         try {
             const write = await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2))
@@ -42,8 +44,8 @@ class CartManager{
             return console.error(err)
         }
     }
-
-      //Generar id autoincrementable
+    
+    //Generar id autoincrementable
     generateCartId = async () => {
         try {
             if (fs.existsSync(this.path)) {
@@ -61,11 +63,12 @@ class CartManager{
         }
     }
 
+    //crear carrito
     addCarts = async () => {
         try {            
             const oldCarts = await this.readCarts()
             const id = await this.generateCartId()
-            //const id = nanoid(2)            //establezco un id automático e irrepetible de una sola cifra
+            //establezco un id automático e irrepetible de una sola cifra
             const newCart = [...oldCarts, 
                 {   
                     id : id, 
@@ -79,10 +82,10 @@ class CartManager{
         }
     }
 
+    //obtener el carrito según su id
     getCartById = async (cid) => {
         try {
             const cartById = await this.exist(cid)
-          //con éste método asignado puedo reemplazar y simplificar todos los métodos find
             if(!cartById) {
                 return "Ese producto no existe"
             } else {
@@ -93,6 +96,7 @@ class CartManager{
         }
     }
 
+    //agregar producto en carrito
     addProductInCart = async (cartId, productId) => {
         try {
             const cartsArray = await this.readCarts()
