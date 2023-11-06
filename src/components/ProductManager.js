@@ -44,16 +44,17 @@ class ProductManager {
   generateId = async () => {
     try {
       if (fs.existsSync(this.path)) {
-        const productlist = await this.readProducts()
-        const counter = productlist.length
+        //busco la existencia de ésta ruta con éste método predeterminado
+        const productList = await this.readProducts()
+        const counter = productList.length
         if (counter == 0) {
           return 1
         } else {
-          return productlist[counter - 1].id + 1
+          return productList[counter - 1 ].id + 1
         }
       }
-    } catch (error) {
-      throw new Error(error)
+    } catch (err) {
+      return console.error(err)
     }
   }
 
@@ -67,11 +68,10 @@ class ProductManager {
       } else {
         const productArray = await this.getProducts({})
         const existCodeInProducts = productArray.some((elemento) => elemento.code === code)
-          if (existCodeInProducts) {
-          return(`El código ${code} no puede repetirse`)
-          } else {
-
-        const id = await this.generateId();
+        if (existCodeInProducts) {
+            return(`El código ${code} no puede repetirse`)
+        } else {
+        const id = await this.generateId()
         const newProduct = {
           id,
           title,
@@ -82,9 +82,9 @@ class ProductManager {
           thumbnail,
           code,
           stock,
-      }
+          }
         productArray.push(newProduct)
-        await fs.promises.writeFile(this.path, JSON.stringify(productArray, null, '\t'))
+        await fs.promises.writeFile(this.path, JSON.stringify(productArray, null, 2))
         return "Producto agregado"
         }
       }
@@ -94,24 +94,34 @@ class ProductManager {
   }
 
   //Borrar producto
-  deleteProduct = async (id) => {
-    const productDetected = await this.readProducts()
-    const productFilter = productDetected.filter(products => products.id != id)
-    await fs.promises.writeFile(this.path, JSON.stringify(productFilter, null, '\t'))
-
-    return `El producto ha sido eliminado`
+  deleteProductById = async (id) => {
+    try {
+      const productDetected = await this.readProducts()
+      const productFilter = productDetected.filter(products => products.id != id)
+      await fs.promises.writeFile(this.path, JSON.stringify(productFilter, null, 2))
+  
+      return `El producto con el ID ${id} ha sido eliminado`  
+    } catch (err) {
+      return console.error(err)
+    }
   }
 
   //Actualizar productos
-  updateProduct = async (id, obj) => {
-    const productDetected = await this.readProducts()
-    const actulizarProduct = productDetected.filter(products => products.id != id)
-    await fs.promises.writeFile(this.path, JSON.stringify(actulizarProduct, null, '\t'))
-    const productOld = await this.readProducts()
-    const productsModif = [{id: id, ...obj}, ...productOld]
-    await fs.promises.writeFile(this.path, JSON.stringify(productsModif, null, '\t'))
+  updateProduct = async (id, product) => {
+    try {
+      const productDetected = await this.readProducts()
+      const loadProduct = productDetected.filter(product => product.id != id)
+      await fs.promises.writeFile(this.path, JSON.stringify(loadProduct, null, 2))
+      const oldProduct = await this.readProducts()
+      const modifiedProduct = [
+          {id: id, ...product}, ...oldProduct
+      ]
+      await fs.promises.writeFile(this.path, JSON.stringify(modifiedProduct, null, 2))
 
-    return "Producto actualizado"
+      return `El producto ha sido actualizado.`     
+    } catch (error) {
+      return console.error(error)
+    }
   }
 }
 

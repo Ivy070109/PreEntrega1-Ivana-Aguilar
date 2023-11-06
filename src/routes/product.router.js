@@ -4,22 +4,24 @@ import ProductManager from '../components/ProductManager.js'
 const product = new ProductManager()
 const router = Router()
 
-
-router.get("/", async (req, res)=>{
-  const products = parseInt(req.query.limit)
-  if(!products) {
-    return res.status(200).send(await product.getProducts())
+router.get("/", async (req, res) => {
+  try {
+    const products = parseInt(req.query.limit)
+    if(!products) {
+      return res.status(200).json(await product.getProducts())
+    }
+    const allProducts = await product.getProducts()
+    const limitProduct = allProducts.slice(0, products)
+  
+    return res.status(200).json(limitProduct)
+  } catch (err) {
+    return console.error(err)
   }
-
-  const allProducts = await product.getProducts()
-  const limitProduct = allProducts.slice(0, products)
-
-  return res.status(200).send(limitProduct)
 })
 
-router.get("/:id", async (req, res) => {
-  const id = parseInt(req.params.id)
-    if (!id) {
+router.get("/:pid", async (req, res) => {
+  const pid = parseInt(req.params.id)
+    if (!pid) {
         return res.status(404).send(`El producto no existe`)
     } 
     const allProducts = await product.getProducts()
@@ -43,7 +45,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const id = req.params.id
-  return res.status(200).send(await product.deleteProduct(id))
+  return res.status(200).send(await product.deleteProductById(id))
 })
 
 export default router

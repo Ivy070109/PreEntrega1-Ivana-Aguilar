@@ -1,123 +1,24 @@
 [
-	{
-		"id": 1,
-		"title": "producto prueba",
-		"description": "éste es un producto prueba",
-		"price": 200,
-		"thumbnail": "Sin imagen",
-		"category": "lindo",
-		"status": true,
-		"code": "abc123",
-		"stock": 25
-	},
-	{
-		"id": 2,
-		"title": "producto lindo",
-		"description": "segundo producto de prueba",
-		"price": 800,
-		"thumbnail": "sin imagen",
-		"category": "colores",
-		"status": true,
-		"code": "abd124",
-		"stock": 87
-	},
-	{
-		"id": 3,
-		"title": "producto rojo",
-		"description": "tercer producto de prueba",
-		"price": 500,
-		"thumbnail": "sin imagen",
-		"category": "lindo",
-		"status": true,
-		"code": "abd125",
-		"stock": 55
-	},
-	{
-		"id": 4,
-		"title": "producto rosa",
-		"description": "cuarto producto de prueba color pastel",
-		"price": 5500,
-		"thumbnail": "sin imagen",
-		"category": "colores",
-		"status": true,
-		"code": "abd126",
-		"stock": 85
-	},
-	{
-		"id": 5,
-		"title": "producto amarillo",
-		"description": "quinto producto de prueba",
-		"price": 8800,
-		"thumbnail": "sin imagen",
-		"category": "lindo",
-		"status": true,
-		"code": "abd127",
-		"stock": 75
-	},
-	{
-		"id": 6,
-		"title": "producto violeta",
-		"description": "sexto producto de prueba color violeta real",
-		"price": 820,
-		"thumbnail": "sin imagen",
-		"category": "colores",
-		"status": true,
-		"code": "abd128",
-		"stock": 52
-	},
-	{
-		"id": 7,
-		"title": "producto celeste",
-		"description": "septimo producto de prueba color cielo",
-		"price": 8480,
-		"thumbnail": "sin imagen",
-		"category": "lindo",
-		"status": true,
-		"code": "abd129",
-		"stock": 77
-	},
-	{
-		"id": 8,
-		"title": "producto borgoña",
-		"description": "octavo producto de prueba vino",
-		"price": 7741,
-		"thumbnail": "sin imagen",
-		"category": "colores",
-		"status": true,
-		"code": "abd130",
-		"stock": 48
-	},
-	{
-		"id": 9,
-		"title": "producto plateado",
-		"description": "noveno producto de prueba elegante",
-		"price": 87400,
-		"thumbnail": "sin imagen",
-		"category": "lindo",
-		"status": true,
-		"code": "abd131",
-		"stock": 87
-	},
-	{
-		"id": 10,
-		"title": "producto verde",
-		"description": "décimo producto de prueba color esperanza",
-		"price": 7781,
-		"thumbnail": "sin imagen",
-		"category": "colores",
-		"status": true,
-		"code": "abd132",
-		"stock": 71
-	},
-	{
-		"id": 13,
-		"title": "producto prueffdba",
-		"description": "éste es un producto prueba",
-		"price": 200,
-		"category": "lindo",
-		"status": true,
-		"thumbnail": "Sin imagen",
-		"code": "abc1ddd2883",
-		"stock": 25
-	}
+  {
+    "id": 2,
+    "title": "producto prueba",
+    "description": "éste es un producto prueboa",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "category": "lindo",
+    "status": true,
+    "code": "abc123",
+    "stock": 25
+  },
+  {
+    "id": 1,
+    "title": "producto lindo",
+    "description": "segundo producto de prueba",
+    "price": 800,
+    "category": "colores",
+    "status": true,
+    "thumbnail": "sin imagen",
+    "code": "abd124",
+    "stock": 87
+  }
 ]
