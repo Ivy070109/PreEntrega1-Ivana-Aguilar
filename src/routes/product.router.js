@@ -1,16 +1,16 @@
 import { Router } from 'express'
 import ProductManager from '../components/ProductManager.js'
 
-const product = new ProductManager()
+const managerProduct = new ProductManager()
 const router = Router()
 
 router.get("/", async (req, res) => {
   try {
     const products = parseInt(req.query.limit)
     if(!products) {
-      return res.status(200).json(await product.getProducts())
+      return res.status(200).json(await managerProduct.getProducts())
     }
-    const allProducts = await product.getProducts()
+    const allProducts = await managerProduct.getProducts()
     const limitProduct = allProducts.slice(0, products)
   
     return res.status(200).json(limitProduct)
@@ -20,32 +20,52 @@ router.get("/", async (req, res) => {
 })
 
 router.get("/:pid", async (req, res) => {
-  const pid = parseInt(req.params.id)
+  try {
+    const pid = parseInt(req.params.pid)
     if (!pid) {
-        return res.status(404).send(`El producto no existe`)
+        return res.status(404).json(`El producto no existe`)
     } 
-    const allProducts = await product.getProducts()
-    const productById = allProducts.find(p => p.id === id)
+    const allProducts = await managerProduct.getProducts()
+    const productById = allProducts.find(p => p.id === pid)
 
-    res.status(200).send(productById)
+    res.status(200).json(productById)
+  } catch (err) {
+    return console.error(err)
+  }
 })
 
 router.post("/", async (req, res) => {
-  const newProduct = req.body
+  try {
+    const newProduct = req.body
+    const productAdded = await managerProduct.addProduct(newProduct)
 
-  return res.status(200).send(await product.addProduct(newProduct))
+    return res.status(200).json(productAdded)
+  } catch (err) {
+    return console.error(err)
+  }
 })
 
-router.put("/:id", async (req, res) => {
-  const id = parseInt(req.params.id)
-  const updateProduct = req.body
+router.put("/:pid", async (req, res) => {
+  try {
+    const pid = parseInt(req.params.pid)
+    const productUpdate = req.body
+    const updatedProduct = await managerProduct.updateProduct(pid, productUpdate)
 
-  return res.status(200).send(await product.updateProduct(id, updateProduct))
+    return res.status(200).json(updatedProduct)
+  } catch (err) {
+    return console.error(err)
+  }
 })
 
-router.delete("/:id", async (req, res) => {
-  const id = req.params.id
-  return res.status(200).send(await product.deleteProductById(id))
+router.delete("/:pid", async (req, res) => {
+  try {
+    const pid = req.params.pid
+    const productDeleted = await managerProduct.deleteProductById(pid)
+
+    return res.status(200).json(productDeleted)
+  } catch (err) {
+    return console.error(err)
+  }
 })
 
 export default router
