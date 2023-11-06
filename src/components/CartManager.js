@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { nanoid } from 'nanoid'
+//import { nanoid } from 'nanoid'
 import ProductManager from '../components/ProductManager.js'
 //lo importo para poder ver lo que los carritos incluyan
 
@@ -64,9 +64,13 @@ class CartManager{
     addCarts = async () => {
         try {            
             const oldCarts = await this.readCarts()
-            //const id = this.generateCartId()
-            const id = nanoid(2)            //establezco un id automático e irrepetible de una sola cifra
-            const newCart = [{id : id, products : []}, ...oldCarts]
+            const id = await this.generateCartId()
+            //const id = nanoid(2)            //establezco un id automático e irrepetible de una sola cifra
+            const newCart = [...oldCarts, 
+                {   
+                    id : id, 
+                    products : []
+                }]
             await this.writeCarts(newCart)
 
             return "Carrito Agregado"    

@@ -36,8 +36,8 @@ router.get('/:cid', async (req, res) => {
 
 router.post('/:cid/products/:pid', async (req, res) => {
     try {
-        const cartId = req.params.cid
-        const productId = req.params.pid
+        const cartId = parseInt(req.params.cid)
+        const productId = parseInt(req.params.pid)
         const productInCart = await cartsManager.addProductInCart(cartId, productId)
         
         return res.status(200).json(productInCart)
