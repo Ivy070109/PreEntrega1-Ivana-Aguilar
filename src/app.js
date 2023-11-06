@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/static', express.static(`${__dirname}/public`))
 
 app.use("/api/products", productRouter)
-app.use("/api/cart", cartsRouter)
+app.use("/api/carts", cartsRouter)
 
 app.listen(PORT,()=>{
     console.log(`Servidor Express ejecutándose en puerto ${PORT}`)

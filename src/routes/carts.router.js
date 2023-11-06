@@ -5,11 +5,23 @@ const carts = new CartManager()
 const cartsRouter = Router()
 
 cartsRouter.post('/', async (req, res) => {
-    return res.status(200).send(await carts.addCarts())
+    try {
+        const newCart = await carts.addCarts()
+
+        return res.status(200).json(newCart)
+    } catch (err) {
+        return console.error(err)
+    }
 })
 
 cartsRouter.get('/', async (req, res) => {
-    return res.status(200).send(await carts.readCarts())
+    try {
+        const cartsArray = await carts.readCarts()
+
+        return res.status(200).json(cartsArray)
+    } catch (err) {
+        return console.error(err)
+    }
 })
 
 cartsRouter.get('/:id', async (req, res) => {

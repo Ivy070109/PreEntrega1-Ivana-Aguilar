@@ -1,5 +1,7 @@
 import fs from "fs"
 class ProductManager {
+  static id = 0
+
   constructor() {
     this.path = './files/products.json'
     this.products = []
