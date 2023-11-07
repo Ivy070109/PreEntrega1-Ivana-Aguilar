@@ -87,7 +87,7 @@ class CartManager{
         try {
             const cartById = await this.exist(cid)
             if(!cartById) {
-                return "Ese producto no existe"
+                return "Ese carrito no existe"
             } else {
                 return cartById
             }
